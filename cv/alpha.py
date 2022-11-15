@@ -39,11 +39,7 @@ def contains_alpha_channel(image: np.ndarray):
         raise ValueError(f"image is NOT np.ndarray: {type(image)}")
 
     try:
-        if len(image.shape) == 3 and image.shape[-1] == 4:
-            return True
-
-        return False
-
+        return len(image.shape) == 3 and image.shape[-1] == 4
     except AttributeError as err:
         raise AttributeError(f"image is None, {err}")
 
@@ -65,12 +61,12 @@ def create_canvas(width: int, height: int, rgb_color: tuple = (0, 0, 0)):
 
 def convert_alpha_to_black(image: np.ndarray = None, imagepath: str = None):
     if image is None and imagepath is None:
-        raise ValueError(f"image or imagepath is necessary")
+        raise ValueError("image or imagepath is necessary")
     elif imagepath is not None:
         image = imread(imagepath)
 
     if not contains_alpha_channel(image):
-        print(f"image doesn't contain alpha channel")
+        print("image doesn't contain alpha channel")
         return image
 
     # # Method 1) Vanila Loop
@@ -98,7 +94,7 @@ def convert_alpha_image_to_binary(image_path: str):
     image = imread(image_path)
 
     if not contains_alpha_channel(image):
-        print(f"image doesn't contain alpha channel")
+        print("image doesn't contain alpha channel")
         return image
 
     # # Method 1) Black Canvas
